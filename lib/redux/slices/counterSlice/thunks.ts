@@ -12,7 +12,7 @@ export const incrementIfOddAsync = (
   ): Promise<void> => {
     dispatch(handleStatus("loading"));
     return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
+      const timeoutForSeeLoadingEffect = setTimeout(() => {
         if (count % 2 !== 0) {
           dispatch(incrementByAmount(amount));
           dispatch(handleStatus("idle"));
@@ -21,6 +21,7 @@ export const incrementIfOddAsync = (
           dispatch(handleStatus("failed"));
           reject();
         }
+        clearTimeout(timeoutForSeeLoadingEffect);
       }, 500);
     });
   };
